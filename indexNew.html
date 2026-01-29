@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Do You Love Me?</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffd6e7,#d6f0ff);
+    font-family:Arial;
+}
+
+.box{
+    text-align:center;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    width:420px;
+    position:relative;
+    overflow:hidden;
+}
+
+img{
+    width:250px;
+    height:250px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+button{
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yesBtn{
+    background:green;
+    color:white;
+    font-size:22px;
+    padding:12px 25px;
+}
+
+#noBtn{
+    background:red;
+    color:white;
+    font-size:22px;
+    padding:12px 25px;
+    position:absolute;
+}
+
+#nextBtn{
+    display:none;
+    background:purple;
+    color:white;
+    font-size:22px;
+    padding:12px 25px;
+}
+
+.message{
+    font-size:28px;
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <img id="catImg" src="images/cat_question.jpg">
+    <h2 id="title">Do you love me? 😺</h2>
+
+    <div>
+        <button id="yesBtn">Yes ❤️</button>
+        <button id="noBtn">No 😿</button>
+    </div>
+
+    <div>
+        <button id="nextBtn">Next ➡️</button>
+    </div>
+
+    <div id="msg" class="message"></div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const nextBtn = document.getElementById("nextBtn");
+const catImg = document.getElementById("catImg");
+const msg = document.getElementById("msg");
+const title = document.getElementById("title");
+const box = document.querySelector(".box");
+
+let yesSize = 22;
+
+// Move NO button
+function moveNo(){
+    const maxX = box.clientWidth - noBtn.offsetWidth;
+    const maxY = box.clientHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    yesSize += 6;
+    yesBtn.style.fontSize = yesSize + "px";
+
+    catImg.src = "images/cat_sad.jpg";
+}
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+// YES clicked
+yesBtn.addEventListener("click", () => {
+    catImg.src = "images/cat_happy.jpg";
+    msg.innerText = "Yall I love you toooo 😻💖";
+
+    noBtn.style.display = "none";
+
+    yesBtn.style.fontSize = "60px";
+    yesBtn.style.padding = "25px 60px";
+
+    nextBtn.style.display = "inline-block";
+});
+
+// NEXT clicked
+nextBtn.addEventListener("click", () => {
+    catImg.src = "images/flower.jpg";
+    title.innerText = "Here your flower 🌸";
+    msg.innerText = "";
+    nextBtn.style.display = "none";
+});
+</script>
+
+</body>
+</html>
